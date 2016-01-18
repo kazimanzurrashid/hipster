@@ -1,0 +1,6 @@
+*.log
+coverage/
+node_modules/
+bower_components/
+buid/
+dist/
