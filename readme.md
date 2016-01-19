@@ -9,7 +9,7 @@ Training session material of angular unit test for Jaxara developers.
 5. Now type `bower install`
 
 ## Run in browser
-Type `npm start`, given that you have python installed.
+Type `npm start`, given that you have python installed in your path.
 
 ## Run test
 Type `npm test`, it will run the tests and start monitoring the files.
