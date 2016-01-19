@@ -22,7 +22,7 @@ describe('FlashSvc', function() {
       });
 
       it('triggers $rootScope event', function() {
-        expect(spy).to.have.been.calledWith('showFlashBar', {
+        expect(spy).to.have.been.calledWith('showFlash', {
           type: method,
           message: message
         });

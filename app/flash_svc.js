@@ -10,7 +10,7 @@
 
       ng.forEach(methods, function(method) {
         factory[method] = function(message) {
-         $rootScope.$broadcast('showFlashBar', {
+         $rootScope.$broadcast('showFlash', {
             type: method,
             message: message
           });
