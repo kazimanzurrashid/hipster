@@ -1,10 +1,11 @@
 describe('UserInfoSvc', function() {
+
   var $httpBackend;
   var service;
 
   beforeEach(angular.mock.module('hipster'));
 
-  beforeEach(inject(function(_$httpBackend_, _UserInfoSvc_) {
+  beforeEach(angular.mock.inject(function(_$httpBackend_, _UserInfoSvc_) {
     $httpBackend = _$httpBackend_;
     service = _UserInfoSvc_;
   }));

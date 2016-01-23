@@ -5,16 +5,17 @@
   app.factory('FlashSvc', [
     '$rootScope',
     function($rootScope) {
+
       var methods = ['success', 'error', 'information', 'warning'];
       var factory = {};
 
       ng.forEach(methods, function(method) {
         factory[method] = function(message) {
-         $rootScope.$broadcast('showFlash', {
+         $rootScope.$broadcast('show-flash', {
             type: method,
             message: message
           });
-        }
+        };
       });
 
       return factory;

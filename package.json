@@ -11,7 +11,10 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.4.1",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^2.0.0",
     "istanbul": "^0.4.2",
+    "jshint": "^2.9.1",
     "karma": "^0.13.19",
     "karma-chai": "^0.1.0",
     "karma-chai-sinon": "^0.1.5",

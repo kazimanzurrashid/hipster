@@ -7,11 +7,14 @@
     'UserInfoSvc', 
     'FlashSvc',
     function($scope, userInfoSvc, flashSvc) {
-      userInfoSvc.getInfo('KaziManzurRashid').then(function(response) {
+
+      var userName = 'kazimanzurrashid';
+
+      userInfoSvc.getInfo(userName).then(function(response) {
         $scope.user = response.data;
         flashSvc.success('Info loaded successfully');
       }, function() {
-        flashSvc.error('Failed to laod info');
+        flashSvc.error('Failed to load info');
       });
     }]);
 

@@ -3,7 +3,7 @@ describe('FlashSvc', function() {
   var methods = ['success', 'error', 'information', 'warning'];
   var message = 'i am a test message';
 
-  var rootScope, flashSvc, spy;
+  var $rootScope, flashSvc, spy;
 
   beforeEach(angular.mock.module('hipster'));
 
@@ -22,7 +22,7 @@ describe('FlashSvc', function() {
       });
 
       it('triggers $rootScope event', function() {
-        expect(spy).to.have.been.calledWith('showFlash', {
+        expect(spy).to.have.been.calledWith('show-flash', {
           type: method,
           message: message
         });

@@ -43,7 +43,7 @@ describe('UserInfoCtrl', function() {
     });
 
     it('flashes success', function() {
-        expect(successStub).to.have.been.called;
+        expect(successStub).to.have.been.calledWith('Info loaded successfully');
     });
 
     afterEach(function() {
@@ -79,11 +79,11 @@ describe('UserInfoCtrl', function() {
     });
 
     it('does not set user info', function() {
-      expect(scope.user).to.be.undefined;
+      expect(scope.user).to.be.an('undefined');
     });
 
     it('flashes error', function() {
-        expect(errorStub).to.have.been.called;
+        expect(errorStub).to.have.been.calledWith('Failed to load info');
     });
 
     afterEach(function() {
