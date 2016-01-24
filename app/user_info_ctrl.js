@@ -3,8 +3,8 @@
   var app = ng.module('hipster');
 
   app.controller('UserInfoCtrl', [
-    '$scope', 
-    'UserInfoSvc', 
+    '$scope',
+    'UserInfoSvc',
     'FlashSvc',
     function($scope, userInfoSvc, flashSvc) {
 

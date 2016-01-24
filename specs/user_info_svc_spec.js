@@ -24,7 +24,10 @@ describe('UserInfoSvc', function() {
         name: 'I am nobody'
       };
 
-      $httpBackend.expectJSONP('https://api.github.com/users/i-am-nobody?callback=JSON_CALLBACK').respond(expected);
+      var endpoint = 'https://api.github.com/users/i-am-nobody?' +
+      'callback=JSON_CALLBACK';
+
+      $httpBackend.expectJSONP(endpoint).respond(expected);
 
       service.getInfo('i-am-nobody').then(function(response) {
         actual = response.data;

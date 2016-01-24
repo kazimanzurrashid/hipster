@@ -3,7 +3,9 @@ describe('FlashSvc', function() {
   var methods = ['success', 'error', 'information', 'warning'];
   var message = 'i am a test message';
 
-  var $rootScope, flashSvc, spy;
+  var $rootScope;
+  var flashSvc;
+  var spy;
 
   beforeEach(angular.mock.module('hipster'));
 

@@ -1,12 +1,19 @@
 describe('UserInfoCtrl', function() {
 
-  var user = { name: 'Kazi'};
+  var user = {
+    name: 'Kazi'
+  };
 
-  var $rootScope, $q, $controller, userInfoSvc, flashSvc;
+  var $rootScope;
+  var $q;
+  var $controller;
+  var userInfoSvc;
+  var flashSvc;
 
   beforeEach(angular.mock.module('hipster'));
 
-  beforeEach(angular.mock.inject(function(_$rootScope_, _$q_, _$controller_, _UserInfoSvc_, _FlashSvc_) {
+  beforeEach(angular.mock.inject(function(_$rootScope_, _$q_, _$controller_,
+                                          _UserInfoSvc_, _FlashSvc_) {
     $rootScope = _$rootScope_;
     $q = _$q_;
     $controller = _$controller_;
@@ -22,7 +29,9 @@ describe('UserInfoCtrl', function() {
 
     beforeEach(function() {
       getInfoStub = sinon.stub(userInfoSvc, 'getInfo', function() {
-        return $q.resolve({ data: user });
+        return $q.resolve({
+          data: user
+        });
       });
 
       successStub = sinon.stub(flashSvc, 'success');
@@ -43,7 +52,7 @@ describe('UserInfoCtrl', function() {
     });
 
     it('flashes success', function() {
-        expect(successStub).to.have.been.calledWith('Info loaded successfully');
+      expect(successStub).to.have.been.calledWith('Info loaded successfully');
     });
 
     afterEach(function() {
@@ -83,7 +92,7 @@ describe('UserInfoCtrl', function() {
     });
 
     it('flashes error', function() {
-        expect(errorStub).to.have.been.calledWith('Failed to load info');
+      expect(errorStub).to.have.been.calledWith('Failed to load info');
     });
 
     afterEach(function() {
