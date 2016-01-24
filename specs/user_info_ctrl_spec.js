@@ -25,7 +25,7 @@ describe('UserInfoCtrl', function() {
 
     var getInfoStub;
     var successStub;
-    var scope;
+    var $scope;
 
     beforeEach(function() {
       getInfoStub = sinon.stub(userInfoSvc, 'getInfo', function() {
@@ -36,19 +36,19 @@ describe('UserInfoCtrl', function() {
 
       successStub = sinon.stub(flashSvc, 'success');
 
-      scope = $rootScope.$new();
+      $scope = $rootScope.$new();
 
       $controller('UserInfoCtrl', {
-        $scope: scope,
+        $scope: $scope,
         userInfoSvc: userInfoSvc,
         flashSvc: flashSvc
       });
 
-      scope.$apply();
+      $scope.$apply();
     });
 
     it('sets user info', function() {
-      expect(scope.user).to.deep.equal(user);
+      expect($scope.user).to.deep.equal(user);
     });
 
     it('flashes success', function() {
@@ -67,7 +67,7 @@ describe('UserInfoCtrl', function() {
     var getInfoStub;
     var errorStub;
 
-    var scope;
+    var $scope;
 
     beforeEach(function() {
       getInfoStub = sinon.stub(userInfoSvc, 'getInfo', function() {
@@ -76,19 +76,19 @@ describe('UserInfoCtrl', function() {
 
       errorStub = sinon.stub(flashSvc, 'error');
 
-      scope = $rootScope.$new();
+      $scope = $rootScope.$new();
 
       $controller('UserInfoCtrl', {
-        $scope: scope,
+        $scope: $scope,
         userInfoSvc: userInfoSvc,
         flashSvc: flashSvc
       });
 
-      scope.$apply();
+      $scope.$apply();
     });
 
     it('does not set user info', function() {
-      expect(scope.user).to.be.an('undefined');
+      expect($scope.user).to.be.an('undefined');
     });
 
     it('flashes error', function() {

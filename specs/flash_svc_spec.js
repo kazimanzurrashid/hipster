@@ -5,37 +5,36 @@ describe('FlashSvc', function() {
 
   var $rootScope;
   var flashSvc;
-  var spy;
 
   beforeEach(angular.mock.module('hipster'));
 
   beforeEach(angular.mock.inject(function(_$rootScope_, _FlashSvc_) {
     $rootScope = _$rootScope_;
     flashSvc = _FlashSvc_;
-    spy = sinon.spy($rootScope, '$broadcast');
   }));
 
   methods.forEach(function(method) {
 
     describe('#' + method, function() {
 
+      var spy;
+
       beforeEach(function() {
+        spy = sinon.spy($rootScope, '$broadcast');
         flashSvc[method](message);
       });
 
-      it('triggers $rootScope event', function() {
+      it('broadcasts $rootScope event', function() {
         expect(spy).to.have.been.calledWith('show-flash', {
           type: method,
           message: message
         });
       });
 
+      afterEach(function() {
+        spy.reset();
+      });
+
     });
-
   });
-
-  afterEach(function() {
-    spy.reset();
-  });
-
 });

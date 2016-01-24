@@ -1,4 +1,11 @@
 {
+  "bitwise": true,
+  "noarg": true,
+  "forin": true,
+  "unused": true,
+  "latedef": true,
+  "freeze": true,
+  "nonew": true,
   "curly": true,
   "eqeqeq": true,
   "undef": true,

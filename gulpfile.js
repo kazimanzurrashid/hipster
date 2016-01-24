@@ -11,6 +11,9 @@ gulp.task('jscs', function() {
 gulp.task('jshint', function() {
   return gulp.src(['./app/**/*.js', './specs/**/*js'])
   .pipe(jshint())
-  .pipe(jshint.reporter('jshint-stylish'));
+  .pipe(jshint.reporter('jshint-stylish', {
+    verbose: true
+  }));
 });
 
+gulp.task('lint', ['jscs', 'jshint']);
