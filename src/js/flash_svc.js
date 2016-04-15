@@ -1,15 +1,11 @@
-(function(ng) {
-
-  var app = ng.module('hipster');
-
-  app.factory('FlashSvc', [
-    '$rootScope',
+angular.module('hipster')
+  .factory('FlashSvc',
     function($rootScope) {
 
       var methods = ['success', 'error', 'information', 'warning'];
       var factory = {};
 
-      ng.forEach(methods, function(method) {
+      angular.forEach(methods, function(method) {
         factory[method] = function(message) {
           $rootScope.$broadcast('show-flash', {
             type: method,
@@ -19,7 +15,4 @@
       });
 
       return factory;
-
-    }]);
-
-})(angular);
+    });

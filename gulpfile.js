@@ -1,14 +1,11 @@
 var gulp = require('gulp');
-var util = require('gulp-util');
 
-var appDirectory = './app';
+var appDirectory = './src';
 var specDirectory = './specs';
-var distDirectory = '/.dist';
 
 var config = {
   indexHtmlFile: appDirectory + '/index.html',
   appJSFiles: [
-    appDirectory + '/js/**/index.js',
     appDirectory + '/js/**/*.js'
   ],
   specJSFiles: [
@@ -20,7 +17,8 @@ var config = {
 gulp.task('jscs', function() {
   var jscs = require('gulp-jscs');
 
-  return gulp.src(config.appJSFiles.concat(config.specJSFiles))
+  return gulp.src(config.appJSFiles
+    .concat(config.specJSFiles))
     .pipe(jscs())
     .pipe(jscs.reporter());
 });
@@ -28,21 +26,55 @@ gulp.task('jscs', function() {
 gulp.task('jshint', function() {
   var jshint = require('gulp-jshint');
 
-  return gulp.src(config.appJSFiles.concat(config.specJSFiles))
+  return gulp.src(config.appJSFiles
+    .concat(config.specJSFiles))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish', {
       verbose: true
     }));
 });
 
-gulp.task('inject', function() {
-  var wiredep = require('wiredep').stream;
-  var inject = require('gulp-inject');
-
-  return gulp.src(config.indexHtmlFile)
-    .pipe(wiredep())
-    .pipe(inject(gulp.src(config.appJSFiles, {base : 'app/js' })))
-    .pipe(gulp.dest(config.distDirectory));
+gulp.task('clean', function() {
+  var del = require('del');
+  return del(config.distDirectory);
 });
 
-gulp.task('lint', ['jscs', 'jshint']);
+gulp.task('build', ['clean', 'jscs', 'jshint'], function() {
+  var bowerFiles = require('main-bower-files')
+  var fileSorter = require('gulp-angular-filesort');
+  var sourceMaps = require('gulp-sourcemaps');
+  var concat = require('gulp-concat');
+  var uglify = require('gulp-uglify');
+  var rev = require('gulp-rev');
+  var annotate = require('gulp-ng-annotate');
+  var inject = require('gulp-inject');
+  var htmlMin = require('gulp-htmlmin');
+
+  var jsLocation = config.distDirectory + 'js/';
+
+  var vendorScript = gulp.src(bowerFiles('**/*.js'))
+    .pipe(fileSorter())
+    .pipe(sourceMaps.init())
+    .pipe(concat('vendor.js'))
+    .pipe(uglify())
+    .pipe(rev())
+    .pipe(sourceMaps.write('./'))
+    .pipe(gulp.dest(jsLocation));
+
+  var appScript = gulp.src(config.appJSFiles)
+    .pipe(fileSorter())
+    .pipe(sourceMaps.init())
+    .pipe(concat('app.js'))
+    .pipe(annotate())
+    .pipe(uglify())
+    .pipe(rev())
+    .pipe(sourceMaps.write('./'))
+    .pipe(gulp.dest(jsLocation));
+
+  return gulp.src(config.indexHtmlFile)
+    .pipe(gulp.dest(config.distDirectory))
+    .pipe(inject(vendorScript, { relative: true, name: 'vendor' }))
+    .pipe(inject(appScript, { relative: true, name: 'app' }))
+    .pipe(htmlMin({ collapseWhitespace: true, removeComments: true }))
+    .pipe(gulp.dest(config.distDirectory));
+});

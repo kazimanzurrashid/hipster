@@ -1,13 +1,9 @@
 {
   "name": "hipster",
-  "description": "",
-  "main": "index.js",
   "authors": [
     "Kazi Manzur Rashid <kaizmanzurrashid@gmail.com>"
   ],
-  "license": "ISC",
-  "moduleType": [],
-  "homepage": "",
+  "license": "MIT",
   "private": true,
   "ignore": [
     "**/.*",
@@ -15,10 +11,10 @@
     "bower_components"
   ],
   "dependencies": {
-    "angular": "~1.4.8",
-    "angular-route": "~1.4.8"
+    "angular": "1.5.5-build.4753+sha.5656eb3",
+    "angular-route": "1.5.5-build.4753+sha.5656eb3"
   },
   "devDependencies": {
-    "angular-mocks": "~1.4.8"
+    "angular-mocks": "1.5.5-build.4753+sha.5656eb3"
   }
 }

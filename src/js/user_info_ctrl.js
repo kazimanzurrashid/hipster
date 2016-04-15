@@ -1,11 +1,5 @@
-(function(ng) {
-
-  var app = ng.module('hipster');
-
-  app.controller('UserInfoCtrl', [
-    '$scope',
-    'UserInfoSvc',
-    'FlashSvc',
+angular.module('hipster')
+  .controller('UserInfoCtrl',
     function($scope, userInfoSvc, flashSvc) {
 
       var userName = 'kazimanzurrashid';
@@ -16,6 +10,4 @@
       }, function() {
         flashSvc.error('Failed to load info');
       });
-    }]);
-
-})(angular);
+    });
