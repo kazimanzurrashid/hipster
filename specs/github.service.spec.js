@@ -1,13 +1,13 @@
-describe('UserInfoSvc', function() {
+describe('gitHub.service', function() {
 
   var $httpBackend;
-  var service;
+  var gitHub;
 
   beforeEach(angular.mock.module('hipster'));
 
-  beforeEach(angular.mock.inject(function(_$httpBackend_, _UserInfoSvc_) {
+  beforeEach(angular.mock.inject(function(_$httpBackend_, _gitHub_) {
     $httpBackend = _$httpBackend_;
-    service = _UserInfoSvc_;
+    gitHub = _gitHub_;
   }));
 
   afterEach(function() {
@@ -15,7 +15,7 @@ describe('UserInfoSvc', function() {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  describe('#getInfo', function() {
+  describe('#getUserProfile', function() {
     var expected;
     var actual;
 
@@ -29,7 +29,7 @@ describe('UserInfoSvc', function() {
 
       $httpBackend.expectJSONP(endpoint).respond(expected);
 
-      service.getInfo('i-am-nobody').then(function(response) {
+      gitHub.getUserProfile('i-am-nobody').then(function(response) {
         actual = response.data;
         done();
       });
@@ -37,9 +37,8 @@ describe('UserInfoSvc', function() {
       $httpBackend.flush();
     });
 
-    it('returns github profile', function() {
+    it('returns user profile', function() {
       expect(actual).to.deep.equal(expected);
     });
   });
-
 });

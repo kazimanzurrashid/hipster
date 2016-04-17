@@ -5,7 +5,7 @@
     <title>Hipster</title>
   </head>
   <body data-ng-app="hipster">
-    <div data-ng-controller="UserInfoCtrl">{{ user | json: 4  }}</div>
+    <div data-ng-controller="UserController as user">{{ user.profile | json: 4  }}</div>
     <!-- vendor:js -->
     <!-- endinject -->
     <!-- app:js -->

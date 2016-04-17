@@ -34,12 +34,14 @@ gulp.task('jshint', function() {
     }));
 });
 
+gulp.task('lint', ['jscs', 'jshint']);
+
 gulp.task('clean', function() {
   var del = require('del');
   return del(config.distDirectory);
 });
 
-gulp.task('build', ['clean', 'jscs', 'jshint'], function() {
+gulp.task('build', ['clean', 'lint'], function() {
   var bowerFiles = require('main-bower-files')
   var fileSorter = require('gulp-angular-filesort');
   var sourceMaps = require('gulp-sourcemaps');
@@ -53,10 +55,9 @@ gulp.task('build', ['clean', 'jscs', 'jshint'], function() {
   var jsLocation = config.distDirectory + 'js/';
 
   var vendorScript = gulp.src(bowerFiles('**/*.js'))
-    .pipe(fileSorter())
     .pipe(sourceMaps.init())
     .pipe(concat('vendor.js'))
-    .pipe(uglify())
+    .pipe(uglify({ preserveComments: 'license' }))
     .pipe(rev())
     .pipe(sourceMaps.write('./'))
     .pipe(gulp.dest(jsLocation));

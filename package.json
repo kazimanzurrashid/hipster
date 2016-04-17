@@ -1,15 +1,14 @@
 {
   "name": "hipster",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "http-server ./app",
     "test": "karma start"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Kazi Manzur Rashid",
+  "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.12.3",
     "chai": "^3.5.0",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
@@ -41,6 +40,5 @@
     "phantomjs-prebuilt": "^2.1.7",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0"
-  },
-  "dependencies": {}
+  }
 }
