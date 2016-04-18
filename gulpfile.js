@@ -33,12 +33,21 @@ gulp.task('jshint', function() {
 
 gulp.task('lint', ['jscs', 'jshint']);
 
+gulp.task('test', function(done) {
+  var Karma = require('karma').Server;
+
+  return new Karma({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
+
 gulp.task('clean:serve', function() {
   var del = require('del');
   return del(config.serveDirectory);
 });
 
-gulp.task('copy:serve', ['clean:serve', 'lint'],function() {
+gulp.task('copy:serve', ['clean:serve', 'lint', 'test'],function() {
   var bowerFiles = require('main-bower-files')
   var fileSorter = require('gulp-angular-filesort');
   var inject = require('gulp-inject');
@@ -76,7 +85,7 @@ gulp.task('clean:build', function() {
   return del([config.distDirectory, config.coverageDirectory]);
 });
 
-gulp.task('build', ['clean:build', 'lint'], function() {
+gulp.task('build', ['clean:build', 'lint', 'test'], function() {
   var bowerFiles = require('main-bower-files')
   var fileSorter = require('gulp-angular-filesort');
   var sourceMaps = require('gulp-sourcemaps');
@@ -114,3 +123,5 @@ gulp.task('build', ['clean:build', 'lint'], function() {
     .pipe(htmlMin({ collapseWhitespace: true }))
     .pipe(gulp.dest(config.distDirectory));
 });
+
+gulp.task('default', ['build']);
