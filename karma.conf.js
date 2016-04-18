@@ -65,4 +65,4 @@ module.exports = function(config) {
       type: 'html'
     }
   });
-}
+};

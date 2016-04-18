@@ -7,7 +7,7 @@ var config = {
   appJSFiles: appDirectory + '/js/**/*.js',
   specJSFiles: './specs/**/*.js',
   distDirectory: './dist/',
-  coverageDirectory : './coverage/',
+  coverageDirectory: './coverage/',
   serveDirectory: './.serve/'
 };
 
@@ -75,7 +75,7 @@ gulp.task('serve', ['copy:serve'], function() {
     server: config.serveDirectory
   });
 
-  return gulp.watch([config.indexHtmlFile, config.appJSFiles], ['watch:serve'])
+  return gulp.watch([config.indexHtmlFile, config.appJSFiles], ['watch:serve']);
 });
 
 gulp.task('watch:serve', ['copy:serve'], browserSync.reload);
