@@ -2,7 +2,7 @@
   "name": "hipster",
   "version": "1.0.0",
   "scripts": {
-    "start": "http-server ./app",
+    "start": "gulp serve",
     "test": "karma start"
   },
   "author": "Kazi Manzur Rashid",

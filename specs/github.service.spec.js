@@ -1,13 +1,13 @@
-describe('gitHub.service', function() {
+describe('github.service', function() {
 
   var $httpBackend;
-  var gitHub;
+  var github;
 
   beforeEach(angular.mock.module('hipster'));
 
-  beforeEach(angular.mock.inject(function(_$httpBackend_, _gitHub_) {
+  beforeEach(angular.mock.inject(function(_$httpBackend_, _github_) {
     $httpBackend = _$httpBackend_;
-    gitHub = _gitHub_;
+    github = _github_;
   }));
 
   afterEach(function() {
@@ -29,7 +29,7 @@ describe('gitHub.service', function() {
 
       $httpBackend.expectJSONP(endpoint).respond(expected);
 
-      gitHub.getUserProfile('i-am-nobody').then(function(response) {
+      github.getUserProfile('i-am-nobody').then(function(response) {
         actual = response.data;
         done();
       });

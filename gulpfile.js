@@ -1,17 +1,14 @@
 var gulp = require('gulp');
 
 var appDirectory = './src';
-var specDirectory = './specs';
 
 var config = {
   indexHtmlFile: appDirectory + '/index.html',
-  appJSFiles: [
-    appDirectory + '/js/**/*.js'
-  ],
-  specJSFiles: [
-    specDirectory + '/**/*.js'
-  ],
-  distDirectory: './dist/'
+  appJSFiles: appDirectory + '/js/**/*.js',
+  specJSFiles: './specs/**/*.js',
+  distDirectory: './dist/',
+  coverageDirectory : './coverage/',
+  serveDirectory: './.serve/'
 };
 
 gulp.task('jscs', function() {
@@ -36,12 +33,50 @@ gulp.task('jshint', function() {
 
 gulp.task('lint', ['jscs', 'jshint']);
 
-gulp.task('clean', function() {
+gulp.task('clean:serve', function() {
   var del = require('del');
-  return del(config.distDirectory);
+  return del(config.serveDirectory);
 });
 
-gulp.task('build', ['clean', 'lint'], function() {
+gulp.task('copy:serve', ['clean:serve', 'lint'],function() {
+  var bowerFiles = require('main-bower-files')
+  var fileSorter = require('gulp-angular-filesort');
+  var inject = require('gulp-inject');
+
+  var jsLocation = config.serveDirectory + 'js/';
+
+  var vendorScript = gulp.src(bowerFiles('**/*.js'))
+    .pipe(gulp.dest(jsLocation));
+
+  var appScript = gulp.src(config.appJSFiles)
+    .pipe(fileSorter())
+    .pipe(gulp.dest(jsLocation));
+
+  return gulp.src(config.indexHtmlFile)
+    .pipe(gulp.dest(config.serveDirectory))
+    .pipe(inject(vendorScript, { relative: true, name: 'vendor' }))
+    .pipe(inject(appScript, { relative: true, name: 'app' }))
+    .pipe(gulp.dest(config.serveDirectory));
+});
+
+var browserSync = require('browser-sync').create();
+
+gulp.task('serve', ['copy:serve'], function() {
+  browserSync.init({
+    server: config.serveDirectory
+  })
+
+  return gulp.watch([config.indexHtmlFile, config.appJSFiles], ['watch:serve'])
+});
+
+gulp.task('watch:serve', ['copy:serve'], browserSync.reload);
+
+gulp.task('clean:build', function() {
+  var del = require('del');
+  return del([config.distDirectory, config.coverageDirectory]);
+});
+
+gulp.task('build', ['clean:build', 'lint'], function() {
   var bowerFiles = require('main-bower-files')
   var fileSorter = require('gulp-angular-filesort');
   var sourceMaps = require('gulp-sourcemaps');
@@ -76,6 +111,6 @@ gulp.task('build', ['clean', 'lint'], function() {
     .pipe(gulp.dest(config.distDirectory))
     .pipe(inject(vendorScript, { relative: true, name: 'vendor' }))
     .pipe(inject(appScript, { relative: true, name: 'app' }))
-    .pipe(htmlMin({ collapseWhitespace: true, removeComments: true }))
+    .pipe(htmlMin({ collapseWhitespace: true }))
     .pipe(gulp.dest(config.distDirectory));
 });

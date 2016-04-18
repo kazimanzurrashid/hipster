@@ -1,6 +1,6 @@
 (function() {
 
-  function gitHub($http) {
+  function github($http) {
     return {
       getUserProfile: function(userName) {
         return $http.jsonp('https://api.github.com/users/' +
@@ -10,5 +10,5 @@
     };
   }
 
-  angular.module('hipster').factory('gitHub', gitHub);
+  angular.module('hipster').factory('github', github);
 })();

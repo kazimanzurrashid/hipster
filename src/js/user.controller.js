@@ -1,10 +1,10 @@
 (function() {
 
-  function UserController(gitHub, flash) {
+  function UserController(github, flash) {
     var self = this;
     var userName = 'kazimanzurrashid';
 
-    gitHub.getUserProfile(userName).then(function(response) {
+    github.getUserProfile(userName).then(function(response) {
       self.profile = response.data;
       flash.success('User profile loaded successfully');
     }, function() {

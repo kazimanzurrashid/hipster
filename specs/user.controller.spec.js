@@ -7,17 +7,17 @@ describe('user.controller', function() {
   var $rootScope;
   var $q;
   var $controller;
-  var gitHub;
+  var github;
   var flash;
 
   beforeEach(angular.mock.module('hipster'));
 
   beforeEach(angular.mock.inject(function(_$rootScope_, _$q_, _$controller_,
-                                          _gitHub_, _flash_) {
+                                          _github_, _flash_) {
     $rootScope = _$rootScope_;
     $q = _$q_;
     $controller = _$controller_;
-    gitHub = _gitHub_;
+    github = _github_;
     flash = _flash_;
   }));
 
@@ -28,7 +28,7 @@ describe('user.controller', function() {
     var controller;
 
     beforeEach(function() {
-      getUserProfileStub = sinon.stub(gitHub, 'getUserProfile', function() {
+      getUserProfileStub = sinon.stub(github, 'getUserProfile', function() {
         return $q.resolve({
           data: userProfile
         });
@@ -37,7 +37,7 @@ describe('user.controller', function() {
       successStub = sinon.stub(flash, 'success');
 
       controller = $controller('UserController', {
-        gitHub: gitHub,
+        github: github,
         flash: flash
       });
 
@@ -66,14 +66,14 @@ describe('user.controller', function() {
     var controller;
 
     beforeEach(function() {
-      getUserProfileStub = sinon.stub(gitHub, 'getUserProfile', function() {
+      getUserProfileStub = sinon.stub(github, 'getUserProfile', function() {
         return $q.reject();
       });
 
       errorStub = sinon.stub(flash, 'error');
 
       controller = $controller('UserController', {
-        gitHub: gitHub,
+        github: github,
         flash: flash
       });
 
