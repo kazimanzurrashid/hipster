@@ -48,7 +48,7 @@ gulp.task('clean:serve', function() {
 });
 
 gulp.task('copy:serve', ['clean:serve', 'lint', 'test'],function() {
-  var bowerFiles = require('main-bower-files')
+  var bowerFiles = require('main-bower-files');
   var fileSorter = require('gulp-angular-filesort');
   var inject = require('gulp-inject');
 
@@ -73,7 +73,7 @@ var browserSync = require('browser-sync').create();
 gulp.task('serve', ['copy:serve'], function() {
   browserSync.init({
     server: config.serveDirectory
-  })
+  });
 
   return gulp.watch([config.indexHtmlFile, config.appJSFiles], ['watch:serve'])
 });
@@ -86,7 +86,7 @@ gulp.task('clean:build', function() {
 });
 
 gulp.task('build', ['clean:build', 'lint', 'test'], function() {
-  var bowerFiles = require('main-bower-files')
+  var bowerFiles = require('main-bower-files');
   var fileSorter = require('gulp-angular-filesort');
   var sourceMaps = require('gulp-sourcemaps');
   var concat = require('gulp-concat');
