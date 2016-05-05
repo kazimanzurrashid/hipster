@@ -1,11 +1,12 @@
 var gulp = require('gulp');
 
 var appDirectory = './src';
+var specsDirectory = './specs';
 
 var config = {
   indexHtmlFile: appDirectory + '/index.html',
   appJSFiles: appDirectory + '/js/**/*.js',
-  specJSFiles: './specs/**/*.js',
+  specJSFiles: specsDirectory + '/**/*.js',
   distDirectory: './dist/',
   coverageDirectory: './coverage/',
   serveDirectory: './.serve/'
@@ -22,8 +23,7 @@ gulp.task('jscs', function() {
 
 gulp.task('eslint', function() {
   var eslint = require('gulp-eslint');
-  return gulp.src(config.appJSFiles
-    .concat(config.specJSFiles))
+  return gulp.src([config.appJSFiles, config.specJSFiles])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
