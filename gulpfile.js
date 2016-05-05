@@ -20,18 +20,16 @@ gulp.task('jscs', function() {
     .pipe(jscs.reporter());
 });
 
-gulp.task('jshint', function() {
-  var jshint = require('gulp-jshint');
-
+gulp.task('eslint', function() {
+  var eslint = require('gulp-eslint');
   return gulp.src(config.appJSFiles
     .concat(config.specJSFiles))
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish', {
-      verbose: true
-    }));
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
-gulp.task('lint', ['jscs', 'jshint']);
+gulp.task('lint', ['jscs', 'eslint']);
 
 gulp.task('test', function(done) {
   var Karma = require('karma').Server;
